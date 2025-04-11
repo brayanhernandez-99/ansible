@@ -1,0 +1,22 @@
+- name: Crear usuarios en servidores Linux
+  hosts: all
+  become: true # para usar sudo
+  vars:
+    users:
+      - name: alice
+        # password: "password123"
+        password: "$6$saltsalt$zRDFhzKHqGZpH8R" # contraseña hasheada
+        shell: /bin/bash
+      - name: bob
+        password: "$6$saltsalt$zRDFhzKHqGZpH8R"
+        shell: /bin/bash
+
+  tasks:
+    - name: Crear usuarios
+      user:
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"
+        # password: "{{ item.password | password_hash('sha512') }}" hashear contraseña
+        shell: "{{ item.shell }}"
+        state: present
+      loop: "{{ users }}"

@@ -1,0 +1,22 @@
+# Directorios y archivos de configuración específicos de Ansible
+*.retry
+*.log
+
+# Archivos de configuración de los hosts
+hosts
+
+# Directorios de Ansible
+.ansible/
+*.yml~ # Archivos de backup de YAML
+
+# Directorios de dependencias y roles
+roles/
+library/
+files/
+tmp/
+
+# Archivos de Vault
+*.vault
+
+# Otros archivos comunes generados durante la ejecución
+ansible.cfg

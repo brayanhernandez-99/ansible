@@ -1,0 +1,10 @@
+- name: Crear cron job para ejecutar un script cada día a las 2:00 AM
+  hosts: all
+  become: yes
+  tasks:
+    cron:
+      name: "Ejecutar mi script"
+      minute: "0"
+      hour: "2"
+      job: "/usr/local/bin/mi_script.sh"
+      state: present

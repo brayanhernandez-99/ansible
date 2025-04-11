@@ -1,0 +1,27 @@
+- name: Configurar NTP para sincronización horaria
+  hosts: all
+  become: yes
+  tasks:
+    - name: Instalar ntp
+      apt:
+        name: ntp
+        state: present
+        update_cache: yes
+
+    - name: Asegurarse de que el servicio NTP esté en ejecución
+      service:
+        name: ntp
+        state: started
+        enabled: yes
+
+    - name: Configurar servidores NTP
+      lineinfile:
+        path: /etc/ntp.conf
+        regexp: "^server"
+        line: "server 0.centos.pool.ntp.org"
+        state: present
+
+    - name: Reiniciar el servicio NTP para aplicar cambios
+      service:
+        name: ntp
+        state: restarted
