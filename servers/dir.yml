@@ -1,8 +1,19 @@
 - name: Create directory on remote hosts
   hosts: all
+  become: yes
   tasks:
     - name: Ensure directory exists
       ansible.builtin.file:
         path: /tmp
         state: directory
         mode: '0755'
+
+- name: Copy directory on remote hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy file
+      ansible.builtin.copy:
+        src: /tmp/file
+        dest: /tmp/bkp/file
+        mode: '0644'
